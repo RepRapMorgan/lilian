@@ -1,0 +1,123 @@
+;************************************************************
+; Windows USB CDC ACM Setup File for Smoothieboard
+; Copyright (c) 2014 The Smoothie Project
+
+[Version]
+Signature="$Windows NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%MFGNAME%
+CatalogFile.NTx86=cdcx86.cat
+CatalogFile.NTamd64=cdcamd64.cat
+DriverVer=10/08/2014,5.1.2600.2
+
+[Manufacturer]
+%MFGNAME%=DeviceList, NTamd64
+
+[DestinationDirs]
+DefaultDestDir=12
+
+
+;------------------------------------------------------------------------------
+;  Windows 2000/XP/Vista-32bit Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NT]
+include=mdmcpq.inf
+CopyFiles=DriverCopyFiles.NT
+AddReg=DriverInstall.NT.AddReg
+
+[DriverCopyFiles.NT]
+
+[DriverInstall.NT.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverInstall.NT.Services]
+AddService=usbser, 0x00000002, DriverService.NT
+
+[DriverService.NT]
+DisplayName=%SERVICE%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\usbser.sys
+LoadOrderGroup=Base
+
+[DFUDriverInstall.NT]
+[DFUDriverInstall.NT.Services]
+AddService=,2
+
+
+;------------------------------------------------------------------------------
+;  Vista-64bit Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTamd64]
+include=mdmcpq.inf
+CopyFiles=DriverCopyFiles.NTamd64
+AddReg=DriverInstall.NTamd64.AddReg
+
+[DriverCopyFiles.NTamd64]
+
+[DriverInstall.NTamd64.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbser.sys
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[DriverInstall.NTamd64.Services]
+AddService=usbser, 0x00000002, DriverService.NTamd64
+
+[DriverService.NTamd64]
+DisplayName=%SERVICE%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\usbser.sys
+LoadGroupOrder=Base
+
+[DFUDriverInstall.NTamd64]
+[DFUDriverInstall.NTamd64.Services]
+AddService=,2
+
+
+;------------------------------------------------------------------------------
+;  Vendor and Product ID Definitions
+;------------------------------------------------------------------------------
+; When developing your USB device, the VID and PID used in the PC side
+; application program and the firmware on the microcontroller must match.
+; Modify the below line to use your VID and PID.  Use the format as shown below.
+; Note: One INF file can be used for multiple devices with different VID and PIDs.
+; For each supported device, append ",USB\VID_xxxx&PID_yyyy" to the end of the line.
+;------------------------------------------------------------------------------
+[SourceDisksNames]
+[SourceDisksFiles]
+
+[DeviceList]
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1D50&PID_6015&MI_00
+%SMOOTHIEBOARD_DFU%=DFUDriverInstall, USB\VID_1D50&PID_6015&MI_03
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1D50&PID_6015&MI_04
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1F00&PID_2012
+%SMOOTHIEPANEL_SERIAL%=DriverInstall, USB\VID_1D50&PID_60A0&MI_00
+
+[DeviceList.NTamd64]
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1D50&PID_6015&MI_00
+%SMOOTHIEBOARD_DFU%=DFUDriverInstall, USB\VID_1D50&PID_6015&MI_03
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1D50&PID_6015&MI_04
+%SMOOTHIEBOARD_SERIAL%=DriverInstall, USB\VID_1F00&PID_2012
+%SMOOTHIEPANEL_SERIAL%=DriverInstall, USB\VID_1D50&PID_60A0&MI_00
+
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+;Modify these strings to customize your device
+;------------------------------------------------------------------------------
+[Strings]
+MFGNAME="Uberclock, LLC (http://uberclock.com)"
+INSTDISK="Smoothieboard USB Serial Drivers"
+SMOOTHIEBOARD_SERIAL="Smoothieboard USB Serial"
+SMOOTHIEBOARD_DFU="Smoothieboard DFU Interface"
+SMOOTHIEPANEL_SERIAL="Smoothiepanel USB Serial"
+SERVICE="USB RS-232 Emulation Driver"

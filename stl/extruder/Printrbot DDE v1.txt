@@ -1,0 +1,4 @@
+This extruder is based on the original Alu Direct drive extruder as posted by Brook Drum from printrbot.com:
+
+http://printrbot.com/2014/01/23/aluminum-extruder-documentation-fun/
+
