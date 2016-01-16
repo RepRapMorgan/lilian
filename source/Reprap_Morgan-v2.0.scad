@@ -8,9 +8,9 @@
 // Some parts, especially the reduction gear wheels can influence print quality negatively
 // if not printed precisely.
 
-include <MCAD/bearings.scad>;
-include <MCAD/materials.scad>;
-include <roundcube.scad>;
+include <MCAD/bearings.scad>
+include <MCAD/materials.scad>
+include <lib/roundcube.scad>
 include <MCAD/teardrop.scad>
 include <MCAD/polyholes.scad>
 include <MCAD/nuts_and_bolts.scad>
@@ -60,7 +60,7 @@ ENVELOPE_CHECK = false;
 //mirror([1,0,0])
 
 
-MakeMorgan(01);		// Select Part number to make	
+MakeMorgan(23);		// Select Part number to make	
 
 //***************************************************************
 //**    Select the number of the module to make				    **
