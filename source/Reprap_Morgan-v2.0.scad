@@ -16,6 +16,10 @@ include <MCAD/polyholes.scad>
 include <MCAD/nuts_and_bolts.scad>
 use     <write/Write.scad>
 
+usableZ = 200;                   // specify the desired z height for the frame
+frameheight = usableZ + 220;     // add clearance for the motors and drivewheels for frame
+
+
 LMxUU = 12;                     // Choose linear bearing: 8 or 12mm
 rodspacing = 190;                // Distance between linear rods for Z:	190 Morgan Pro
 Frame_pipe_OD = 25.5;		  // Default 25.4mm - 1inch OD
@@ -60,7 +64,7 @@ ENVELOPE_CHECK = false;
 //mirror([1,0,0])
 
 
-MakeMorgan(23);		// Select Part number to make	
+MakeMorgan(01);		// Select Part number to make	
 
 //***************************************************************
 //**    Select the number of the module to make				    **
@@ -103,20 +107,20 @@ module MakeMorgan(partnumber)
 {
 	if (partnumber == 1 ){
 		if (Pipe_support_mk2 == true){
-			MorganPVCsupport_ANG_mk2(Frame_pipe_OD,130,130,420, pipe = false, port=false, version = "1");
+			MorganPVCsupport_ANG_mk2(Frame_pipe_OD,130,130,frameheight, pipe = false, port=false, version = "1");
 		}
 		else
 		{
-			MorganPVCsupport_ANG(PVC_pipe_ID,130,130,420, pipe = false, port=true);	// 458.47
+			MorganPVCsupport_ANG(PVC_pipe_ID,130,130,frameheight, pipe = false, port=true);	// 458.47
 		}
 	}
 	if (partnumber == 2 ){
 		if (Pipe_support_mk2 == true){
-			MorganPVCsupport_ANG_mk2(Frame_pipe_OD,70,150,420, pipe = false, version = "2");
+			MorganPVCsupport_ANG_mk2(Frame_pipe_OD,70,150,frameheight, pipe = false, version = "2");
 		}
 		else
 		{
-			MorganPVCsupport_ANG(PVC_pipe_ID,70,150,420, pipe = false);					// 451.44
+			MorganPVCsupport_ANG(PVC_pipe_ID,70,150,frameheight, pipe = false);					// 451.44
 		}
 	}
 	
@@ -523,9 +527,9 @@ module belt_clip($fn = 100, t_rad = 30, t_width = 2.5, t_gap = 2.5)		// Adapted 
 
 module MorganF(){
 
-		MorganPVCsupport_ANG(29,130,130,420, pipe = pipeselect);		// 458.47
+		MorganPVCsupport_ANG(29,130,130,frameheight, pipe = pipeselect);		// 458.47
 	translate([50,0,0])
-		MorganPVCsupport_ANG(29,70,150,420, pipe = pipeselect);			// 451.44
+		MorganPVCsupport_ANG(29,70,150,frameheight, pipe = pipeselect);			// 451.44
 	
 
 }
@@ -538,31 +542,31 @@ module MorganFrame(){
 		MorganZmountBot();
 
 	translate([150,0,0])
-		MorganPVCsupport_ANG(29,-130,130,420, pipe =pipeselect);
+		MorganPVCsupport_ANG(29,-130,130,frameheight, pipe =pipeselect);
 	translate([-150,0,0])
-		MorganPVCsupport_ANG(29,130,130,420, pipe = pipeselect);
+		MorganPVCsupport_ANG(29,130,130,frameheight, pipe = pipeselect);
 	
 	translate([70,150,0])
-		MorganPVCsupport_ANG(29,70,-150,420, pipe = pipeselect);
+		MorganPVCsupport_ANG(29,70,-150,frameheight, pipe = pipeselect);
 	translate([-70,150,0])
-		MorganPVCsupport_ANG(29,-70,-150,420, pipe = pipeselect);
+		MorganPVCsupport_ANG(29,-70,-150,frameheight, pipe = pipeselect);
 
-	translate([-180,-40,420])
+	translate([-180,-40,frameheight])
 		cube([360,220,8]);
 
-	translate([0,0,420])
+	translate([0,0,frameheight])
 		rotate([0,180,0])
 		{
 			MorganZmountTop();
 
 			translate([140,0,0])
-				MorganPVCsupport_ANG(29,-70,150,420, pipe = pipeselect);
+				MorganPVCsupport_ANG(29,-70,150,frameheight, pipe = pipeselect);
 			translate([-140,0,0])
-				MorganPVCsupport_ANG(29,70,150,420, pipe = pipeselect);
+				MorganPVCsupport_ANG(29,70,150,frameheight, pipe = pipeselect);
 			translate([20,130,0])
-				MorganPVCsupport_ANG(29,130,-130,420, pipe = pipeselect);
+				MorganPVCsupport_ANG(29,130,-130,frameheight, pipe = pipeselect);
 			translate([-20,130,0])
-				MorganPVCsupport_ANG(29,-130,-130,420, pipe = pipeselect);
+				MorganPVCsupport_ANG(29,-130,-130,frameheight, pipe = pipeselect);
 		}
 }
 
