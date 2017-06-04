@@ -1283,19 +1283,19 @@ module MorganSpoolHolder(PipeOD, PipeID){
 module MorganPVCsupport_ANG_mk2(PipeOD = 32, target_x = 0, target_y = 0, target_z=1, pipe = false, port = false, version = ""){
 
 	PipeLength = sqrt (pow(target_x,2)+pow(target_y,2)+pow(target_z,2));
-	echo (PipeLength-20);		//subtract the 20mm for the pipe support rings...
+	echo ("Pipelength = ",PipeLength-20);		//subtract the 20mm for the pipe support rings...
 	
 	deg_x = asin ( target_x / PipeLength);
 	deg_y = -asin ( target_y / PipeLength) ;
 	deg_z = atan ( target_x / target_y) ;			// Straighten the mount
 
-	deg_t = 
+	//deg_t = 
 	
-	echo (deg_z);
+	echo ("Degrees to base: ",deg_z);
 
 	difference(){
 		union(){
-			#cylinder(r1=(PipeOD+2)/2,r2=(PipeOD)/2, h=8, $fn = 100);
+			cylinder(r1=(PipeOD+2)/2,r2=(PipeOD)/2, h=8, $fn = 100);
 			
 			rotate([deg_y,deg_x,deg_z]){	
 				difference(){
@@ -1353,7 +1353,7 @@ module MorganPVCsupport_ANG_mk2(PipeOD = 32, target_x = 0, target_y = 0, target_
 
 		}
 
-		writecylinder(version,[0,0,0],15.5-Text_depth,12 + Hotend_H,h=7,up=10, east=-90,font="Letters.dxf",face="bottom",rotate=90);
+		writecylinder(version,[0,0,0],15.5-Text_depth,12,h=7,up=10, east=-90,font="Letters.dxf",face="bottom",rotate=90);
 		
 	}
 
