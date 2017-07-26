@@ -64,7 +64,7 @@ ENVELOPE_CHECK = false;
 //mirror([1,0,0])
 
 
-MakeMorgan(01);		// Select Part number to make	
+MakeMorgan(04);		// Select Part number to make	
 
 //***************************************************************
 //**    Select the number of the module to make				    **
@@ -1477,6 +1477,18 @@ module MorganPillarMount(){
 	}
 }
 
+module polyhole2(h, d1, d2) {
+    n1 = max(round(2 * d1),3);
+    n2 = max(round(2 * d2),3);
+
+    rotate([0,0,180])
+        cylinder(	h = h, 
+			r1 = (d1 / 2) / cos (180 / n1), 
+			r2 = (d2 / 2) / cos (180 / n2),
+			$fn = max(n1,n2));
+	
+}
+
 module MorganPillarMountPro(){
 	difference(){
 		union(){
@@ -1525,18 +1537,18 @@ module MorganPillarMountPro(){
 		translate([0,0,6])
 			rotate([0,90,-45]){
 				translate([0,21,-15])		
-					#polyhole(30,3);
+					polyhole(30,3);
 				translate([0,-21,-15])		
-					#polyhole(30,3);
+					polyhole(30,3);
 				translate([0,21,9])		
-					#polyhole(5,6);
+					polyhole(5,6);
 				translate([0,-21,9])		
-					#polyhole(5,6);
+					polyhole(5,6);
 
 				translate([0,21,-13])		
-					#cylinder(r=6.8/2,h=5,$fn=6);
+					cylinder(r=6.8/2,h=5,$fn=6);
 				translate([0,-21,-13])		
-					#cylinder(r=6.8/2,h=5,$fn=6);
+					cylinder(r=6.8/2,h=5,$fn=6);
 			}
 
 	}
